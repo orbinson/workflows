@@ -1,5 +1,8 @@
 name: AEM Maven Build
 
+on:
+  workflow_call:
+  
 jobs:
   build:
     name: Maven Build
