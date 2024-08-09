@@ -1,0 +1,43 @@
+name: GitHub Release
+
+on:
+  workflow_dispatch:
+    inputs:
+      central:
+        description: Version
+        required: true
+        type: string
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    name: GitHub release
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Update CHANGELOG.md
+        uses: thomaseizinger/keep-a-changelog-new-release@v1
+        with:
+          version: ${{ input.version }}
+
+      - name: Get release info
+        uses: release-flow/keep-a-changelog-action/get-release-info@v1
+
+      - name: Commit and push release
+        uses: stefanzweifel/git-auto-commit-action@v4
+        with:
+          commit_message: "Create release ${{ steps.changelog.outputs.release-version }}"
+          tagging_message: ${{ steps.changelog.outputs.release-version }}
+
+      - name: Create release
+        uses: softprops/action-gh-release@v1
+        with:
+          name: ${{ steps.update-changelog.outputs.release-version }}
+          tag_name: ${{ steps.changelog.outputs.release-version }}
+          files: all/target/aem-dictionary-translator.all-*.zip
+          body: ${{ steps.changelog.outputs.release-notes }}
