@@ -39,5 +39,4 @@ jobs:
         with:
           name: ${{ steps.update-changelog.outputs.release-version }}
           tag_name: ${{ steps.changelog.outputs.release-version }}
-          files: all/target/aem-dictionary-translator.all-*.zip
           body: ${{ steps.changelog.outputs.release-notes }}
