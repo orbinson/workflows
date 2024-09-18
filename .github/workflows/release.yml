@@ -11,3 +11,5 @@ on:
 jobs:
   call-workflow:
     uses: orbinson/workflows/.github/workflows/github-release.yml@main
+    with:
+        version: inputs.version
