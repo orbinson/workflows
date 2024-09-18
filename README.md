@@ -1,11 +1,11 @@
 # Reusable GitHub Workflows
 
-To use the workflows defined in this repository you can [call](https://docs.github.com/en/actions/using-workflows/reusing-workflows) them in you project workflow jobs where `<worflow>` needs to be replaced with the yaml file name present in the [workflows](.github/workflows) folder.
+To use the workflows defined in this repository you can [call](https://docs.github.com/en/actions/using-workflows/reusing-workflows) them in you project workflow jobs where `<worflow>` needs to be replaced with the yaml file name present in the [workflows](.github/workflows) folder. A ref, which in this example is the `main` branch, needs to be specific when calling workflows.
 
 ```yml
 jobs:
   call-workflow:
-    uses: orbinson/workflows/.github/workflows/<workflow>.yml
+    uses: orbinson/workflows/.github/workflows/<workflow>.yml@main
 ```
 
 ## AEM Maven Build
@@ -14,11 +14,19 @@ The [aem-maven-build](.github/workflows/aem-maven-build) workflow uses a Java 11
 
 ## GitHub Release
 
-Update the `CHANGELOG.md` file with the provided version and create a GitHub release based on the `CHANGELOG.md`.
+The [github-release](.github/workflows/github-release.yml) workflow will create a GitHub release by performing the following actions
+
+* Update the `CHANGELOG.md` file where the `[Unreleased]` section is replaced with the provided `version` and a new `[Unreleased]` section is created
+* Updated `CHANGELOG.md` is committed and tagged with the provided `version`
+* A GitHub release is created version tag
+
+**Inputs**
+
+* `version`: Semantic version of release to be created
 
 ## Maven Release
 
-The [maven-release](.github/workflows/maven-release) workflow uses a Java 11 environment and a build cache to perform to following actions
+The [maven-release](.github/workflows/maven-release.yml) workflow uses a Java 11 environment and a build cache to perform to following actions
 
 * Remove `SNAPSHOT` from the project version
 * Update `CHANGELOG.md`
