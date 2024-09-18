@@ -10,7 +10,7 @@ jobs:
 
 ## AEM Maven Build
 
-The [aem-maven-build](.github/workflows/aem-maven-build) workflow uses a Java 11 environment and a build cache to perform a `mvn install`.
+The [aem-maven-build](.github/workflows/aem-maven-build.yml) workflow uses a Java 11 environment and a build cache to perform a `mvn install`.
 
 ## GitHub Release
 
