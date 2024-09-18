@@ -23,7 +23,7 @@ jobs:
       - name: Update CHANGELOG.md
         uses: thomaseizinger/keep-a-changelog-new-release@v1
         with:
-          version: ${{ input.version }}
+          version: ${{ inputs.version }}
 
       - name: Get release info
         uses: release-flow/keep-a-changelog-action/get-release-info@v1
