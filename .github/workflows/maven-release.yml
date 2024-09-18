@@ -1,7 +1,7 @@
 name: Maven Release
 
 on:
-  workflow_dispatch:
+  workflow_call:
     inputs:
       central:
         description: Release to Maven repository
