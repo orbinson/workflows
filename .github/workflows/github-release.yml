@@ -29,6 +29,7 @@ jobs:
         uses: release-flow/keep-a-changelog-action@v3
         with:
           command: query
+          version: latest
 
       - name: Commit and push release
         uses: stefanzweifel/git-auto-commit-action@v5
