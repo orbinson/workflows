@@ -21,22 +21,22 @@ jobs:
         uses: actions/checkout@v3
 
       - name: Update CHANGELOG.md
-        uses: thomaseizinger/keep-a-changelog-new-release@v1
+        uses: thomaseizinger/keep-a-changelog-new-release@v3
         with:
           version: ${{ inputs.version }}
 
       - name: Get release info
-        uses: release-flow/keep-a-changelog-action/get-release-info@v1
+        uses: release-flow/keep-a-changelog-action@v3
 
       - name: Commit and push release
         uses: stefanzweifel/git-auto-commit-action@v4
         with:
-          commit_message: "Create release ${{ steps.changelog.outputs.release-version }}"
-          tagging_message: ${{ steps.changelog.outputs.release-version }}
+          commit_message: "Create release ${{ steps.changelog.outputs.version }}"
+          tagging_message: ${{ steps.changelog.outputs.version }}
 
       - name: Create release
         uses: softprops/action-gh-release@v1
         with:
-          name: ${{ steps.update-changelog.outputs.release-version }}
-          tag_name: ${{ steps.changelog.outputs.release-version }}
-          body: ${{ steps.changelog.outputs.release-notes }}
+          name: ${{ steps.update-changelog.outputs.version }}
+          tag_name: ${{ steps.changelog.outputs.version }}
+          body: ${{ steps.changelog.outputs.notes }}
