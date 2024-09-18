@@ -5,4 +5,4 @@ on:
 
 jobs:
   call-workflow:
-    uses: orbinson/workflows/.github/workflows/<workflow>.yml
+    uses: orbinson/workflows/.github/workflows/github-release.yml
