@@ -14,6 +14,8 @@ The [aem-maven-build](.github/workflows/aem-maven-build) workflow uses a Java 11
 
 ## GitHub Release
 
+Update the `CHANGELOG.md` file with the provided version and create a GitHub release based on the `CHANGELOG.md`.
+
 ## Maven Release
 
 The [maven-release](.github/workflows/maven-release) workflow uses a Java 11 environment and a build cache to perform to following actions
