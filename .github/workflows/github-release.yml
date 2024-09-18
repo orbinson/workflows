@@ -27,16 +27,18 @@ jobs:
 
       - name: Get release info
         uses: release-flow/keep-a-changelog-action@v3
+        with:
+          command: query
 
       - name: Commit and push release
-        uses: stefanzweifel/git-auto-commit-action@v4
+        uses: stefanzweifel/git-auto-commit-action@v5
         with:
           commit_message: "Create release ${{ steps.changelog.outputs.version }}"
           tagging_message: ${{ steps.changelog.outputs.version }}
 
       - name: Create release
-        uses: softprops/action-gh-release@v1
+        uses: softprops/action-gh-release@v2
         with:
           name: ${{ steps.update-changelog.outputs.version }}
           tag_name: ${{ steps.changelog.outputs.version }}
-          body: ${{ steps.changelog.outputs.notes }}
+          body: ${{ steps.changelog.outputs.release-notes }}
