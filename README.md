@@ -1,6 +1,9 @@
 # Reusable GitHub Workflows
 
-To use the workflows defined in this repository you can [call](https://docs.github.com/en/actions/using-workflows/reusing-workflows) them in you project workflow jobs where `<worflow>` needs to be replaced with the yaml file name present in the [workflows](.github/workflows) folder. A ref, which in this example is the `main` branch, needs to be specific when calling workflows.
+To use the workflows defined in this repository you
+can [call](https://docs.github.com/en/actions/using-workflows/reusing-workflows) them in you project workflow jobs where
+`<worflow>` needs to be replaced with the yaml file name present in the [workflows](.github/workflows) folder. A ref,
+which in this example is the `main` branch, needs to be specific when calling workflows.
 
 ```yml
 jobs:
@@ -10,23 +13,47 @@ jobs:
 
 ## AEM Maven Build
 
-The [aem-maven-build](.github/workflows/aem-maven-build.yml) workflow uses a Java 11 environment and a build cache to perform a `mvn install`.
+The [aem-maven-build](.github/workflows/aem-maven-build.yml) workflow uses a Java 11 environment and a build cache to
+perform a `mvn install`.
+
+**Example:**
+
+```yml
+jobs:
+  call-workflow:
+    uses: orbinson/workflows/.github/workflows/aem-maven-build.yml@main
+```
 
 ## GitHub Release
 
-The [github-release](.github/workflows/github-release.yml) workflow will create a GitHub release by performing the following actions
+The [github-release](.github/workflows/github-release.yml) workflow will create a GitHub release by performing the
+following actions
 
-* Update the `CHANGELOG.md` file where the `[Unreleased]` section is replaced with the provided `version` and a new `[Unreleased]` section is created
+* Update the `CHANGELOG.md` file where the `[Unreleased]` section is replaced with the provided `version` and a new
+  `[Unreleased]` section is created
 * Updated `CHANGELOG.md` is committed and tagged with the provided `version`
 * A GitHub release is created version tag
 
-**Inputs**
+The following **inputs** should be provided for the workflow
 
-* `version`: Semantic version of release to be created
+| Key       | Description                               |
+|-----------|-------------------------------------------|
+| `version` | Semantic version of release to be created |
+
+**Example:**
+
+```yml
+jobs:
+    call-workflow:
+      uses: orbinson/workflows/.github/workflows/github-release.yml@main
+      with:
+        version: 1.0.0
+```
 
 ## Maven Release
 
-The [maven-release](.github/workflows/maven-release.yml) workflow uses a Java 11 environment and a build cache to perform to following actions
+The [maven-release](.github/workflows/maven-release.yml) workflow uses a Java 11 environment and a build cache to
+perform to following actions
 
 * Remove `SNAPSHOT` from the project version
 * Update `CHANGELOG.md`
@@ -43,9 +70,9 @@ The workflow allows to specify if you need to
 
 In order to use the workflow you need to set the following secrets
 
-| secret | description |
-|-|-|
-| `MAVEN_USERNAME` | Username to deploy to maven repository |
-| `MAVEN_PASSWORD` | Password to deploy to maven repository|
-| `MAVEN_GPG_PASSPHRASE` | GPG passphrase to sign maven artifacts |
+| secret                  | description                             |
+|-------------------------|-----------------------------------------|
+| `MAVEN_USERNAME`        | Username to deploy to maven repository  |
+| `MAVEN_PASSWORD`        | Password to deploy to maven repository  |
+| `MAVEN_GPG_PASSPHRASE`  | GPG passphrase to sign maven artifacts  |
 | `MAVEN_GPG_PRIVATE_KEY` | GPG private key to sign maven artifacts |

@@ -24,26 +24,19 @@ permissions:
 
 jobs:
   release:
-    name: Maven and GitHub release
+    name: Maven and GitHub Release
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v3
-
-      - name: Cache local Maven repository
-        uses: actions/cache@v3
-        with:
-          path: ~/.m2/repository
-          key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
-          restore-keys: |
-            ${{ runner.os }}-maven
+        uses: actions/checkout@v4
 
       - name: Setup Java with Maven repository
-        uses: actions/setup-java@v3
+        uses: actions/setup-java@v4
         with:
-          distribution: 'zulu'
+          distribution: zulu
           java-version: 11
+          cache: maven
           server-id: ossrh
           server-username: MAVEN_USERNAME
           server-password: MAVEN_PASSWORD
@@ -58,30 +51,29 @@ jobs:
           echo "RELEASE_VERSION=$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout)" >> $GITHUB_ENV
 
       - name: Update CHANGELOG.md
-        if: ${{ inputs.push }}
-        uses: thomaseizinger/keep-a-changelog-new-release@v1
+        uses: thomaseizinger/keep-a-changelog-new-release@v3
         with:
           version: ${{ env.RELEASE_VERSION }}
 
-      - name: Get release info
-        id: changelog
-        uses: release-flow/keep-a-changelog-action/get-release-info@v1
+      - name: Query release info
+        id: query-release-info
+        uses: release-flow/keep-a-changelog-action@v3
+        with:
+          command: query
+          version: latest
 
       - name: Commit and push release
-        if: ${{ inputs.push }}
-        uses: stefanzweifel/git-auto-commit-action@v4
+        uses: stefanzweifel/git-auto-commit-action@v5
         with:
-          commit_message: "Create release ${{ steps.changelog.outputs.release-version }}"
-          tagging_message: ${{ steps.changelog.outputs.release-version }}
+          commit_message: "Create release ${{ steps.query-release-info.outputs.version }}"
+          tagging_message: ${{ steps.query-release-info.outputs.version }}
 
       - name: Create release
-        if: ${{ inputs.github }}
-        uses: softprops/action-gh-release@v1
+        uses: softprops/action-gh-release@v2
         with:
-          name: ${{ steps.update-changelog.outputs.release-version }}
-          tag_name: ${{ steps.changelog.outputs.release-version }}
-          files: all/target/*.all-*.zip
-          body: ${{ steps.changelog.outputs.release-notes }}
+          name: ${{ steps.update-query-release-info.outputs.version }}
+          tag_name: ${{ steps.query-release-info.outputs.version }}
+          body: ${{ steps.query-release-info.outputs.release-notes }}
 
       - name: Next SNAPSHOT version
         if: ${{ inputs.push }}
