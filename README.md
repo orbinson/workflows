@@ -7,8 +7,8 @@ which in this example is the `main` branch, needs to be specific when calling wo
 
 ```yml
 jobs:
-  call-workflow:
-    uses: orbinson/workflows/.github/workflows/<workflow>.yml@main
+    call-workflow:
+        uses: orbinson/workflows/.github/workflows/<workflow>.yml@main
 ```
 
 ## AEM Maven Build
@@ -20,8 +20,8 @@ perform a `mvn install`.
 
 ```yml
 jobs:
-  call-workflow:
-    uses: orbinson/workflows/.github/workflows/aem-maven-build.yml@main
+    call-workflow:
+        uses: orbinson/workflows/.github/workflows/aem-maven-build.yml@main
 ```
 
 ## GitHub Release
@@ -45,9 +45,9 @@ The following **inputs** should be provided for the workflow
 ```yml
 jobs:
     call-workflow:
-      uses: orbinson/workflows/.github/workflows/github-release.yml@main
-      with:
-        version: 1.0.0
+        uses: orbinson/workflows/.github/workflows/github-release.yml@main
+        with:
+            version: 1.0.0
 ```
 
 ## Maven Release
@@ -70,9 +70,9 @@ The workflow allows to specify if you need to
 
 In order to use the workflow you need to set the following secrets
 
-| secret                  | description                             |
-|-------------------------|-----------------------------------------|
-| `MAVEN_USERNAME`        | Username to deploy to maven repository  |
-| `MAVEN_PASSWORD`        | Password to deploy to maven repository  |
-| `MAVEN_GPG_PASSPHRASE`  | GPG passphrase to sign maven artifacts  |
-| `MAVEN_GPG_PRIVATE_KEY` | GPG private key to sign maven artifacts |
+| secret            | description                             |
+|-------------------|-----------------------------------------|
+| `username`        | Username to deploy to maven repository  |
+| `password`        | Password to deploy to maven repository  |
+| `gpg-passphrase`  | GPG passphrase to sign maven artifacts  |
+| `gpg-private-key` | GPG private key to sign maven artifacts |

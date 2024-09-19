@@ -8,6 +8,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 - Bump versions of actions to `actions/checkout@v4` and `actions/setup-java@v4`
+- Change maven release secret names
 
 ## [0.0.1] - 2024-09-18
 

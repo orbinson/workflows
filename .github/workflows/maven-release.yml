@@ -18,6 +18,15 @@ on:
         required: false
         default: true
         type: boolean
+    secrets:
+      username:
+        required: true
+      password:
+        required: true
+      gpg-passphrase:
+        required: true
+      gpg-private-key:
+        required: true
 
 permissions:
   contents: write
@@ -40,7 +49,7 @@ jobs:
           server-id: ossrh
           server-username: MAVEN_USERNAME
           server-password: MAVEN_PASSWORD
-          gpg-private-key: ${{ secrets.MAVEN_GPG_PRIVATE_KEY }}
+          gpg-private-key: ${{ secrets.gpg-private-key }}
           gpg-passphrase: MAVEN_GPG_PASSPHRASE
 
       - name: Remove SNAPSHOT from version
@@ -66,9 +75,9 @@ jobs:
         if: ${{ inputs.central }}
         run: mvn --batch-mode deploy --activate-profiles release
         env:
-          MAVEN_USERNAME: ${{ secrets.SONATYPE_USERNAME }}
-          MAVEN_PASSWORD: ${{ secrets.SONATYPE_PASSWORD }}
-          MAVEN_GPG_PASSPHRASE: ${{ secrets.GPG_PASSPHRASE }}
+          MAVEN_USERNAME: ${{ secrets.username }}
+          MAVEN_PASSWORD: ${{ secrets.password }}
+          MAVEN_GPG_PASSPHRASE: ${{ secrets.gpg-passphrase }}
 
       - name: Commit and push release
         if: ${{ inputs.push }}
