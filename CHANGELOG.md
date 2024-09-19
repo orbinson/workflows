@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.0.2] - 2024-09-19
+
 - Bump versions of actions to `actions/checkout@v4` and `actions/setup-java@v4`
 - Change maven release secret names
 
@@ -19,5 +21,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - GitHub Release workflow to release code as a GitHub release
 - Documentation how to use the workflows
 
-[unreleased]: https://github.com/orbinson/workflows/compare/0.0.1...HEAD
+[unreleased]: https://github.com/orbinson/workflows/compare/0.0.2...HEAD
+[0.0.2]: https://github.com/orbinson/workflows/compare/0.0.1...0.0.2
 [0.0.1]: https://github.com/orbinson/workflows/compare/e94feb18236bbf5ad86a4d0acfe3c473289fa53d...0.0.1
