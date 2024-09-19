@@ -20,8 +20,8 @@ perform a `mvn install`.
 
 ```yml
 jobs:
-    call-workflow:
-        uses: orbinson/workflows/.github/workflows/aem-maven-build.yml@main
+  call-workflow:
+    uses: orbinson/workflows/.github/workflows/aem-maven-build.yml@main
 ```
 
 ## GitHub Release
@@ -44,10 +44,10 @@ The following **inputs** should be provided for the workflow
 
 ```yml
 jobs:
-    call-workflow:
-        uses: orbinson/workflows/.github/workflows/github-release.yml@main
-        with:
-            version: 1.0.0
+  call-workflow:
+    uses: orbinson/workflows/.github/workflows/github-release.yml@main
+    with:
+      version: 1.0.0
 ```
 
 ## Maven Release
@@ -76,3 +76,20 @@ In order to use the workflow you need to set the following secrets
 | `password`        | Password to deploy to maven repository  |
 | `gpg-passphrase`  | GPG passphrase to sign maven artifacts  |
 | `gpg-private-key` | GPG private key to sign maven artifacts |
+
+**Example:**
+
+```yml
+jobs:
+  call-workflow:
+    uses: orbinson/workflows/.github/workflows/maven-release.yml@main
+    with:
+      central: true
+      github: true
+      push: true
+    secrets:
+      username: ${{ secrets.SONATYPE_USERNAME }}
+      password: ${{ secrets.SONATYPE_PASSWORD }}
+      gpg-passphrase: ${{ secrets.GPG_PASSPHRASE }}
+      gpg-private-key: ${{ secrets.GPG_PRIVATE_KEY }}
+```
