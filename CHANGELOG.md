@@ -11,7 +11,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Bump versions of actions to `actions/checkout@v4` and `actions/setup-java@v4`
 - Change maven release secret names
-- Add `java-version` input work AEM Maven Build workflow
+- Add `java-version` input work `AEM Maven Build` and `Maven Release` workflow
 
 ## [0.0.1] - 2024-09-18
 
