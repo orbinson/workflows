@@ -2,6 +2,12 @@ name: AEM Maven Build
 
 on:
   workflow_call:
+    inputs:
+      java-version:
+        description: Major Java SDK version
+        required: true
+        default: 11
+        type: number
 
 jobs:
   build:
@@ -16,7 +22,7 @@ jobs:
         uses: actions/setup-java@v4
         with:
           distribution: zulu
-          java-version: 11
+          java-version: ${{ inputs.java-version }}
           cache: maven
 
       - name: Maven build
