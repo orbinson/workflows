@@ -27,3 +27,9 @@ jobs:
 
       - name: Maven build
         run: mvn --batch-mode --update-snapshots install
+
+      - name: Cache artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: aem-content-packages
+          path: */target/*.zip
