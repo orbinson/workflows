@@ -51,7 +51,7 @@ jobs:
           distribution: zulu
           java-version: ${{ inputs.java-version }}
           cache: maven
-          server-id: ossrh
+          server-id: sonatype-central-portal
           server-username: MAVEN_USERNAME
           server-password: MAVEN_PASSWORD
           gpg-private-key: ${{ secrets.gpg-private-key }}
@@ -78,7 +78,8 @@ jobs:
 
       - name: Deploy package
         if: ${{ inputs.central }}
-        run: mvn --batch-mode deploy --activate-profiles release
+        run: |
+          mvn --batch-mode deploy -Dnjord.autoPublish -Dpublisher=sonatype-cp -DaltDeploymentRepository=id::njord: -Dnjord.publisher.sonatype-cp.releaseRepositoryId=sonatype-central-portal
         env:
           MAVEN_USERNAME: ${{ secrets.username }}
           MAVEN_PASSWORD: ${{ secrets.password }}
