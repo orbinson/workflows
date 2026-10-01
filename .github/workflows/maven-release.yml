@@ -18,6 +18,11 @@ on:
         required: false
         default: true
         type: boolean
+      files:
+        description: Newline-delimited glob patterns of files to attach to the GitHub release
+        required: false
+        default: ''
+        type: string
       java-version:
         description: Major Java SDK version
         required: true
@@ -96,8 +101,9 @@ jobs:
         if: ${{ inputs.github }}
         uses: softprops/action-gh-release@v2
         with:
-          name: ${{ steps.update-query-release-info.outputs.version }}
+          name: ${{ steps.query-release-info.outputs.version }}
           tag_name: ${{ steps.query-release-info.outputs.version }}
+          files: ${{ inputs.files }}
           body: ${{ steps.query-release-info.outputs.release-notes }}
 
       - name: Next SNAPSHOT version
